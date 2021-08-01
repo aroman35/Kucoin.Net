@@ -2,6 +2,7 @@
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.OrderBook;
 using CryptoExchange.Net.Sockets;
+using Kucoin.Net.Interfaces;
 using Kucoin.Net.Objects;
 using Kucoin.Net.Objects.Sockets;
 
@@ -20,10 +21,18 @@ namespace Kucoin.Net
         /// </summary>
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="options">The options for the order book</param>
-        public KucoinSymbolOrderBook(string symbol, KucoinOrderBookOptions? options = null) : base(symbol, options ?? new KucoinOrderBookOptions())
+        public KucoinSymbolOrderBook(string symbol, KucoinOrderBookOptions? options = null)
+            : base(symbol, options ?? new KucoinOrderBookOptions())
         {
             restClient = new KucoinClient();
             socketClient = new KucoinSocketClient();
+        }
+
+        public KucoinSymbolOrderBook(string symbol, KucoinClient kucoinClient, KucoinSocketClient kucoinSocketClient, KucoinOrderBookOptions? options = null)
+            : base(symbol, options ?? new KucoinOrderBookOptions())
+        {
+            restClient = kucoinClient;
+            socketClient = kucoinSocketClient;
         }
 
         /// <inheritdoc />

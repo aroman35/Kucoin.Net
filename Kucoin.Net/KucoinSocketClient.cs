@@ -228,7 +228,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", "/market/level2:" + string.Join(",", symbols), false);
-            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
+            return await Subscribe(request, null, true, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace Kucoin.Net
             });
 
             var request = new KucoinRequest(NextId().ToString(CultureInfo.InvariantCulture), "subscribe", $"/spotMarket/level2Depth{limit}:" + string.Join(",", symbols), false);
-            return await Subscribe(request, null, false, innerHandler).ConfigureAwait(false);
+            return await Subscribe(request, null, true, innerHandler).ConfigureAwait(false);
         }
 
         /// <summary>

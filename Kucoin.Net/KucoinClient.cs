@@ -207,7 +207,7 @@ namespace Kucoin.Net
         public async Task<WebCallResult<KucoinOrderBook>> GetAggregatedFullOrderBookAsync(string symbol, CancellationToken ct = default)
         {
             symbol.ValidateKucoinSymbol();
-            return await Execute<KucoinOrderBook>(GetUri($"market/orderbook/level2?symbol={symbol}", 3), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<KucoinOrderBook>(GetUri($"market/orderbook/level2?symbol={symbol}", 3), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Kucoin.Net
         {
             symbol.ValidateKucoinSymbol();
 
-            return await Execute<KucoinFullOrderBook>(GetUri($"market/orderbook/level3?symbol={symbol}", 3), HttpMethod.Get, ct).ConfigureAwait(false);
+            return await Execute<KucoinFullOrderBook>(GetUri($"market/orderbook/level3?symbol={symbol}", 3), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1427,7 +1427,7 @@ namespace Kucoin.Net
         async Task<WebCallResult<ICommonTicker>> IExchangeClient.GetTickerAsync(string symbol)
         {
             var result = await GetTickerAsync(symbol);
-            return new WebCallResult<ICommonTicker>(result.ResponseStatusCode, result.ResponseHeaders, (ICommonTicker?)result.Data, result.Error);
+            return new WebCallResult<ICommonTicker>(result.ResponseStatusCode, result.ResponseHeaders, (ICommonTicker)result.Data, result.Error);
         }
 
         async Task<WebCallResult<IEnumerable<ICommonTicker>>> IExchangeClient.GetTickersAsync()
